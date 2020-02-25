@@ -237,3 +237,120 @@ console.error: (new Error("SessionFile is closed", "resource:///modules/sessions
 JavaScript error: https://mtarenda.ru/catalog/arenda_gusenichnogo_ekskavatora/jcb-js-190-nc/, line 4: SyntaxError: missing ) after argument list
 [Parent 32376, Gecko_IOThread] WARNING: pipe error (127): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
 1582650412393	Marionette	INFO	Stopped listening on port 43373
+1582654571971	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileJn3wM6"
+1582654572471	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582654572472	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582654572472	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582654572472	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582654574603	Marionette	INFO	Listening on port 44267
+1582654574680	Marionette	WARN	TLS certificate errors will be ignored for this session
+1582654578319	Marionette	INFO	Stopped listening on port 44267
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 680: TypeError: this.tablesData[table] is undefined
+1582654627820	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilejjUBmd"
+1582654628330	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582654628330	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582654628330	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582654628331	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582654629975	Marionette	INFO	Listening on port 44313
+1582654630037	Marionette	WARN	TLS certificate errors will be ignored for this session
+1582654633572	Marionette	INFO	Stopped listening on port 44313
+1582654646414	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilekBdjkp"
+1582654646929	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582654646929	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582654646929	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582654646929	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582654649914	Marionette	INFO	Listening on port 40885
+1582654649924	Marionette	WARN	TLS certificate errors will be ignored for this session
+1582654972517	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile5vfARM"
+1582654973019	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582654973019	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582654973019	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582654973019	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582654974884	Marionette	INFO	Listening on port 42013
+1582654974940	Marionette	WARN	TLS certificate errors will be ignored for this session
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Parent 19705, Gecko_IOThread] WARNING: pipe error (74): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582654975276	Marionette	INFO	Stopped listening on port 40885
+[Parent 22473, Gecko_IOThread] WARNING: pipe error (74): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582655072472	Marionette	INFO	Stopped listening on port 42013
+1582655191921	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilem1U6br"
+1582655192440	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582655192440	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582655192440	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582655192440	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582655194143	Marionette	INFO	Listening on port 45629
+1582655194236	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 10037, Gecko_IOThread] WARNING: pipe error (74): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582655239937	Marionette	INFO	Stopped listening on port 45629
+1582655272675	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileTPKBNt"
+1582655273230	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582655273230	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582655273231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582655273231	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582655275271	Marionette	INFO	Listening on port 41259
+1582655275297	Marionette	WARN	TLS certificate errors will be ignored for this session
+1582655424081	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilebMszxU"
+1582655424627	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582655424628	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582655424628	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582655424628	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582655426313	Marionette	INFO	Listening on port 39029
+1582655426410	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 22338, Gecko_IOThread] WARNING: pipe error (139): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582655450522	Marionette	INFO	Stopped listening on port 39029
+1582655922994	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile2P1DH2"
+1582655923588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582655923588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582655923588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582655923588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582655925244	Marionette	INFO	Listening on port 45677
+1582655925309	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 26624, Gecko_IOThread] WARNING: pipe error (66): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 26624, Gecko_IOThread] WARNING: pipe error (77): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 26624, Gecko_IOThread] WARNING: pipe error (133): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582656047458	Marionette	INFO	Stopped listening on port 45677
+[Parent 18268, Gecko_IOThread] WARNING: pipe error (67): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 18268, Gecko_IOThread] WARNING: pipe error (74): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582656051115	Marionette	INFO	Stopped listening on port 41259
+1582656057493	mozrunner::runner	INFO	Running command: "/usr/local/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileRQ1FAb"
+1582656058450	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1582656058450	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1582656058450	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1582656058451	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1582656060126	Marionette	INFO	Listening on port 33133
+1582656060201	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://spectex.biz/gusenechnye-ekskavatory/gusenichnyy-ekskavator-jcb-js-190-nc/, line 1545: ReferenceError: fbq is not defined
+JavaScript error: https://spectex.biz/gusenechnye-ekskavatory/gusenichnyy-ekskavator-jcb-js-190-nc/, line 1545: ReferenceError: fbq is not defined
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (219): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+JavaScript error: https://spectex.biz/gusenechnye-ekskavatory/gusenichnyy-ekskavator-jcb-js-190-nc/, line 1545: ReferenceError: fbq is not defined
+[Child 1168, Chrome_ChildThread] WARNING: pipe error: Обрыв канала: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 728
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (221): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+console.error: (new Error("Transaction canceled due to a closed connection.", "resource://gre/modules/Sqlite.jsm", 613))
+console.error: (new Error("Transaction canceled due to a closed connection.", "resource://gre/modules/Sqlite.jsm", 613))
+console.error: (new Error("Transaction canceled due to a closed connection.", "resource://gre/modules/Sqlite.jsm", 613))
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (107): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (118): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (154): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (62): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (167): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 28056, Gecko_IOThread] WARNING: pipe error (66): Соединение разорвано другой стороной: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1582657202240	Marionette	INFO	Stopped listening on port 33133

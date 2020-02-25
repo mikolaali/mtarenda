@@ -14,16 +14,12 @@ import platform
 import subprocess
 
 # google_search = 'https://images.google.com/?q=%s'
-
 # MacOS
 # chrome_path = 'open -a /Applications/Google\ Chrome.app %s'
-
 # Windows
 # chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-
 # Linux
 # chrome_path = '/usr/bin/google-chrome --no-sandbox %s'
-
 sys.setrecursionlimit(15000)
 
 content_live = 86400
@@ -59,8 +55,10 @@ prod_list = {}
 # prod_urls = []
 img_urls = []
 imgs_path = {}
+prod_id = ''
 
-def open_file(path):
+#for dir open
+def open_file(path):    # for dir open
     if platform.system() == "Windows":
         os.startfile(path)
     elif platform.system() == "Darwin":
@@ -68,12 +66,13 @@ def open_file(path):
     else:
         subprocess.Popen(["xdg-open", path])
 
+# get content, return content.bs4
 def request_url(base_url, headers):
     session = requests.Session()
     session.cookies.clear()
     return session.get(base_url, headers=headers)
 
-
+# cat_dict - описание категории + url's
 def categories_parse(base_url, headers):
     '''Парсит сайт на предмент urls категорий, имени категории ,  и транслит категории
     Все помещается в список cat_list
@@ -106,7 +105,7 @@ def categories_parse(base_url, headers):
     else:
         print('ERROR')
 
-
+# загрузить содержимое в обьект Category(), может быть несколько страниц
 def category_content_download():
     # cat_dict = db['catsep']
     for key in cat_dict.keys():
@@ -128,6 +127,7 @@ def category_content_download():
     db['catsep'] = {}
     db['catsep'] = cat_dict
 
+# Зарактеристики продукта , добавить в prod_list = {}
 def product_parse(content, cat):
     soup = bs(content, 'lxml')
     divs = soup.find_all('div', class_='row catalog-item')
@@ -173,6 +173,7 @@ def product_parse(content, cat):
         db['prod_list'] = {}
         db['prod_list'] = prod_list
 
+# Описание к продукту, костыль , т.к. из начально парсил со страницы категории , а не со страницы
 def prod_comment(url):
     content = request_url(url, headers)
     if content.status_code == 200:
@@ -185,9 +186,6 @@ def prod_comment(url):
             return comment.replace('МосТрансАренда', 'А Строй')
         else:
             return ''
-
-
-
 
 def save_img(url, cat, prod):
     relative_path = '..' + '/' + path_img + '/' + cat.translit_name + '/' + prod.translit_name
@@ -222,6 +220,15 @@ def update_db_cat():
         d[cat.translit_name] = cat
     db['catsep'] = d
 
+# csv segment
+def csv_row_build(cat,prod):
+    '''
+    :param cat: Object of type Category()
+    :param prod:  Object of type Product()
+    :return: csv string for inserting in csv file
+    :prod_id: id - uniq , autoincrement
+    prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift&&&0&&0&&&
+    '''
 
 if __name__ == '__main__':
     db = shelve.open('mydb', 'w')
@@ -247,7 +254,7 @@ if __name__ == '__main__':
 
     # update_db_cat()
 
-    category_content_download()
+    # category_content_download()
 
     #
     # for key in cat_dict.keys():
@@ -256,9 +263,10 @@ if __name__ == '__main__':
     #         product_parse(content, cat_dict[key])
 
     # print(prod_list,'\n', imgs_path,'\n', img_urls)
-
+    prod1 = ''
     for k in prod_list.keys():
         prod = prod_list[k]
+        prod1 = prod_list[k]
         print(prod.name, prod.comment)
         print(len(prod_list))
         print('/'.join(imgs_path[prod.translit_name].split('/')[:-1]))
@@ -270,6 +278,7 @@ if __name__ == '__main__':
         # search = prod.name.replace(' ','+')
         # driver.get("https://www.google.com.sg/search?q=%s" % search + "&espv=2&biw=1920&bih=989&site=webhp&source=lnms&tbm=isch&sa=X&ei=ApZZVdrQJcqWuATcz4K4Cw&sqi=2&ved=0CAcQ_AUoAg")
         break
+
 
     #
     # for key in prod_list.keys():
