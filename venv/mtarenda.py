@@ -273,7 +273,7 @@ def csv_row_build(cat,prod):
             result_string += img_string
     for c in prod.characteristics:
         characteristics_string += c[0] + ':' c[1]
-    
+
 
 
 if __name__ == '__main__':
