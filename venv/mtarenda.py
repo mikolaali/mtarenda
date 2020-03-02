@@ -143,12 +143,13 @@ def product_parse(content, cat):
         prod = Product()
         prod.url = urljoin(root, div.a['href'])
         prod.img_url = urljoin(root, div.img['src'])
-        prod.category = key
+        prod.category_name = cat.name
+        prod.category_translitname = cat.translit_name
         prod.name = name
         prod.translit_name = translit_name
         # characteristics of product
         spans = div.find_all('span', class_='amount')
-        prod.comment = prod_comment(prod.url)
+        prod.comment = prod_comment(prod.url, prod.translit_name)
         prod.shift = spans[0].text
         prod.shipping = spans[1].text
         lis = div.find_all('li', class_='specifications-item')
@@ -243,6 +244,12 @@ def save_img(url, cat, prod):
         db['img_urls'] = img_urls
         return img_file
 
+def set_id():
+    cnt = 0
+    for prod in prod_list:
+        prod.id = cnt
+        cnt += 1
+
 def update_db_cat():
     categories_parse(base_url, headers)
     d = {}
@@ -259,20 +266,25 @@ def csv_row_build(cat,prod):
     :param prod:  Object of type Product()
     :return: csv string for inserting in csv file
     :prod_id: id - uniq , autoincrement
-    prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&&&&&&&&
+    prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift.replace(' ','')&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&&&&&&&&
     '''
     img_string = ''
-    result_string = ''
     characteristic = ''
     characteristics_string = ''
     img_path = '/home/s/ss992mhb/back/public_html/import/'
+
+    result_string = ''
+
     list_images = os.listdir(prod.relative_path)
+    print(list_images)
     for img in list_images:
         if os.path.isfile(img):
-            img_string = img_path + cat.translit_name + prod.translit_name + img + ';'
+            img_string = img_path + cat.translit_name + '/' + prod.translit_name + '/' + img + ';'
             result_string += img_string
+    print(result_string)
     for c in prod.characteristics:
-        characteristics_string += c[0] + ':' c[1]
+        characteristics_string += c[0] + ':' + c[1]
+    print(characteristics_string)
 
 
 
@@ -299,16 +311,24 @@ if __name__ == '__main__':
         print('have data')
         print('End else section')
 
+
+
+
     # update_db_cat()
 
     # category_content_download()
 
     #
-    # for key in cat_dict.keys():
-    #     cat = cat_dict[key]
-    #     for content in cat_dict[key].content:
-    #         product_parse(content, cat_dict[key])
+    for key in cat_dict.keys():
+        cat = cat_dict[key]
+        for content in cat_dict[key].content:
+            product_parse(content, cat_dict[key])
 
+    set_id()
+
+    for key in prod_list.keys():
+        prod = prod_list[key]
+        csv_row_build(cat_dict[prod.category_translitname],prod)
     # print(prod_list,'\n', imgs_path,'\n', img_urls)
     #---------------- FULL COMMENTS
     # cnt = 0
