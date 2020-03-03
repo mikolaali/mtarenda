@@ -10,7 +10,7 @@ import webbrowser
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.webdriver import FirefoxProfile
-import platform
+# import platform
 import subprocess
 
 # google_search = 'https://images.google.com/?q=%s'
@@ -22,7 +22,7 @@ import subprocess
 # chrome_path = '/usr/bin/google-chrome --no-sandbox %s'
 sys.setrecursionlimit(15000)
 
-content_live = 86400
+content_live = 864000
 headers = {
     'accept': '*/*',
     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'}
@@ -228,6 +228,23 @@ def csv_row_build(cat,prod):
     :return: csv string for inserting in csv file
     :prod_id: id - uniq , autoincrement
     prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift&&&0&&0&&&
+    1. id - func() - set id + '&' +\
+    2. active -1 
+    3. prod.name
+    4. cat.name + ';Аренда спецтехники
+    5. prod.shift.replace(' ','')
+    6. + '&&&&&&&&' + prod.shipping +\
+    7. '&&&&&&&&&&&10&&both&&&&&' +\
+    8. prod.full_comment + '&' \
+    9. cat.name --- дописать(32пункт) + '&' +\
+    10. prod.name + ' в аренду по выгодной цене - А Строй' + '&' +\
+    11. prod.name + ' аренда спецтехники' + '&' +\
+    12. prod.name + '  аренду по выгодной цене' + '&' +\
+    13. '&&&&&&&' + \
+    14. img_string_func() + '&' +\
+    15. '1' + '&' +\
+    16. string_characteristics() + '&' +\
+    17. '&&&&&1&&&&' =
     '''
 
 if __name__ == '__main__':
@@ -252,7 +269,7 @@ if __name__ == '__main__':
         print('have data')
         print('End else section')
 
-    # update_db_cat()
+    # update_db_cat() 
 
     # category_content_download()
 

@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/root/PycharmProjects/mtarenda/venv"
+VIRTUAL_ENV="/home/aloha/mtarenda/venv/bin"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
