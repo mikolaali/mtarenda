@@ -8,9 +8,9 @@ from product import *
 import transliterate as tr
 import os, sys, resource
 import webbrowser
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.webdriver import FirefoxProfile
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.firefox.webdriver import FirefoxProfile
 # import platform
 import subprocess
 
@@ -183,24 +183,24 @@ def prod_comment(url, translit_name):
         soup = bs(content.content, 'lxml')
         div = soup.find('div', class_ = ['row element-description-row preview-descr', 'row element-description-row'])
         # print(dir(div))
-        full_comment = ''
-        if div:
-            for i in range(1, len(div.contents[1])):
-                # print(div.next)
-                elem = div.contents[1].contents[i]
-                if isinstance(elem, bs4.element.NavigableString): continue
-                # print(type(elem), str(elem).replace('МосТрансАренда', 'А Строй').strip(), 'type --- elem')
-                if isinstance(elem, (bs4.element.Tag,)):
-                    elem_str = str(elem).strip().replace(' \n','')
-                    if  elem_str == '<h2>Контакты</h2>' or elem_str == '<h2>Контактные данные</h2>': break
-                    else:
-                        full_comment += elem_str.replace('МосТрансАренда', 'А Строй')
-            print(full_comment, '---- full_comment')
-            full_comments[translit_name] = full_comment
-            db['full_comments'] = {}
-            db['full_comments'] = full_comments
-        else:
-            print('if div- NoneObj', type(div))
+        # full_comment = ''
+        # if div:
+        #     for i in range(1, len(div.contents[1])):
+        #         # print(div.next)
+        #         elem = div.contents[1].contents[i]
+        #         if isinstance(elem, bs4.element.NavigableString): continue
+        #         # print(type(elem), str(elem).replace('МосТрансАренда', 'А Строй').strip(), 'type --- elem')
+        #         if isinstance(elem, (bs4.element.Tag,)):
+        #             elem_str = str(elem).strip().replace(' \n','')
+        #             if  elem_str == '<h2>Контакты</h2>' or elem_str == '<h2>Контактные данные</h2>': break
+        #             else:
+        #                 full_comment += elem_str.replace('МосТрансАренда', 'А Строй')
+        #     print(full_comment, '---- full_comment')
+        #     full_comments[translit_name] = full_comment
+        #     db['full_comments'] = {}
+        #     db['full_comments'] = full_comments
+        # else:
+        #     print('if div- NoneObj', type(div))
             # print(type(elem.find_all_next()),elem.find_next())
             # print(type(elem.find_next()), elem.find_next(),'----elem', div.find_next(), '---- div')
             # comment = elem.find(text='Контакты')
@@ -212,13 +212,13 @@ def prod_comment(url, translit_name):
             # print(elem.name, '------ name')
             # break
         # div = soup.find('div', class_ = 'row element-description-row preview-descr')
-        # if div:
-        #     p = div.find('p')
-        #     comment = p.text.strip()
-        #     print(comment.replace('МосТрансАренда', 'А Строй'))
-        #     return comment.replace('МосТрансАренда', 'А Строй')
-        # else:
-        #     return ''
+        if div:
+            p = div.find('p')
+            comment = p.text.strip()
+            print(comment.replace('МосТрансАренда', 'А Строй'))
+            return comment.replace('МосТрансАренда', 'А Строй')
+        else:
+            return ''
 
 def save_img(url, cat, prod):
     relative_path = '..' + '/' + path_img + '/' + cat.translit_name + '/' + prod.translit_name
@@ -232,7 +232,7 @@ def save_img(url, cat, prod):
     if url not in img_urls:
         r = requests.get(url)
     else:
-        # print('already downloaded')
+        print('already downloaded')
         return img_file
 
     if r.status_code == 200:
@@ -246,7 +246,8 @@ def save_img(url, cat, prod):
 
 def set_id():
     cnt = 0
-    for prod in prod_list:
+    for key in prod_list.keys():
+        prod = prod_list[key]
         prod.id = cnt
         cnt += 1
 
@@ -266,7 +267,6 @@ def csv_row_build(cat,prod):
     :param prod:  Object of type Product()
     :return: csv string for inserting in csv file
     :prod_id: id - uniq , autoincrement
-<<<<<<< HEAD
     prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift&&&0&&0&&&
     1. id - func() - set id + '&' +\
     2. active -1 
@@ -287,7 +287,6 @@ def csv_row_build(cat,prod):
     17. '&&&&&1&&&&' =
 =======
     prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift.replace(' ','')&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&&&&&&&&
->>>>>>> 68ed9295870720982ab8596d15796d93753b79de
     '''
     img_string = ''
     characteristic = ''
@@ -295,16 +294,22 @@ def csv_row_build(cat,prod):
     img_path = '/home/s/ss992mhb/back/public_html/import/'
 
     result_string = ''
-
+    print(prod.relative_path)
     list_images = os.listdir(prod.relative_path)
     print(list_images)
     for img in list_images:
-        if os.path.isfile(img):
+        img_dir = prod.relative_path + '/' + img
+        if os.path.isfile(img_dir):
             img_string = img_path + cat.translit_name + '/' + prod.translit_name + '/' + img + ';'
             result_string += img_string
+    result_string = result_string[:-1]
     print(result_string)
-    for c in prod.characteristics:
-        characteristics_string += c[0] + ':' + c[1]
+    for key in prod.characteristics.keys():
+        c = prod.characteristics[key]
+        print(c)
+        print(c[0], c[1])
+        characteristics_string += c[0] + ':' + c[1] + ':' + str(key + 1) +';'
+    characteristics_string = characteristics_string[:-1]
     print(characteristics_string)
 
 
@@ -330,24 +335,20 @@ if __name__ == '__main__':
         full_comments = db['full_comments']
         print(list(cat_dict.keys()))
         print('have data')
-        print('End else section')
+        print('End else section of if.db.get()')
 
-<<<<<<< HEAD
-    # update_db_cat() 
-=======
+    # update_db_cat()
 
 
 
     # update_db_cat()
->>>>>>> 68ed9295870720982ab8596d15796d93753b79de
 
-    # category_content_download()
 
     #
-    for key in cat_dict.keys():
-        cat = cat_dict[key]
-        for content in cat_dict[key].content:
-            product_parse(content, cat_dict[key])
+    # for key in cat_dict.keys():
+    #     cat = cat_dict[key]
+    #     for content in cat_dict[key].content:
+    #         product_parse(content, cat_dict[key])
 
     set_id()
 
