@@ -1,7 +1,8 @@
 # coding=utf-8
 from bs4 import BeautifulSoup as bs
+import bs4
 import time
-import requests, pickle, shelve
+import requests, pickle, shelve, re
 from urllib.parse import urljoin
 from product import *
 import transliterate as tr
@@ -56,6 +57,7 @@ prod_list = {}
 img_urls = []
 imgs_path = {}
 prod_id = ''
+full_comments = {}
 
 #for dir open
 def open_file(path):    # for dir open
@@ -141,12 +143,13 @@ def product_parse(content, cat):
         prod = Product()
         prod.url = urljoin(root, div.a['href'])
         prod.img_url = urljoin(root, div.img['src'])
-        prod.category = key
+        prod.category_name = cat.name
+        prod.category_translitname = cat.translit_name
         prod.name = name
         prod.translit_name = translit_name
         # characteristics of product
         spans = div.find_all('span', class_='amount')
-        prod.comment = prod_comment(prod.url)
+        prod.comment = prod_comment(prod.url, prod.translit_name)
         prod.shift = spans[0].text
         prod.shipping = spans[1].text
         lis = div.find_all('li', class_='specifications-item')
@@ -174,18 +177,48 @@ def product_parse(content, cat):
         db['prod_list'] = prod_list
 
 # Описание к продукту, костыль , т.к. из начально парсил со страницы категории , а не со страницы
-def prod_comment(url):
+def prod_comment(url, translit_name):
     content = request_url(url, headers)
     if content.status_code == 200:
         soup = bs(content.content, 'lxml')
-        div = soup.find('div', class_ = 'row element-description-row preview-descr')
+        div = soup.find('div', class_ = ['row element-description-row preview-descr', 'row element-description-row'])
+        # print(dir(div))
+        full_comment = ''
         if div:
-            p = div.find('p')
-            comment = p.text.strip()
-            print(comment.replace('МосТрансАренда', 'А Строй'))
-            return comment.replace('МосТрансАренда', 'А Строй')
+            for i in range(1, len(div.contents[1])):
+                # print(div.next)
+                elem = div.contents[1].contents[i]
+                if isinstance(elem, bs4.element.NavigableString): continue
+                # print(type(elem), str(elem).replace('МосТрансАренда', 'А Строй').strip(), 'type --- elem')
+                if isinstance(elem, (bs4.element.Tag,)):
+                    elem_str = str(elem).strip().replace(' \n','')
+                    if  elem_str == '<h2>Контакты</h2>' or elem_str == '<h2>Контактные данные</h2>': break
+                    else:
+                        full_comment += elem_str.replace('МосТрансАренда', 'А Строй')
+            print(full_comment, '---- full_comment')
+            full_comments[translit_name] = full_comment
+            db['full_comments'] = {}
+            db['full_comments'] = full_comments
         else:
-            return ''
+            print('if div- NoneObj', type(div))
+            # print(type(elem.find_all_next()),elem.find_next())
+            # print(type(elem.find_next()), elem.find_next(),'----elem', div.find_next(), '---- div')
+            # comment = elem.find(text='Контакты')
+            # if str(comment) == 'Контакты':
+            #     print(str(comment), '---- founds contacts')
+            #     break
+
+            # print(elem, '--- i perebor')
+            # print(elem.name, '------ name')
+            # break
+        # div = soup.find('div', class_ = 'row element-description-row preview-descr')
+        # if div:
+        #     p = div.find('p')
+        #     comment = p.text.strip()
+        #     print(comment.replace('МосТрансАренда', 'А Строй'))
+        #     return comment.replace('МосТрансАренда', 'А Строй')
+        # else:
+        #     return ''
 
 def save_img(url, cat, prod):
     relative_path = '..' + '/' + path_img + '/' + cat.translit_name + '/' + prod.translit_name
@@ -211,6 +244,12 @@ def save_img(url, cat, prod):
         db['img_urls'] = img_urls
         return img_file
 
+def set_id():
+    cnt = 0
+    for prod in prod_list:
+        prod.id = cnt
+        cnt += 1
+
 def update_db_cat():
     categories_parse(base_url, headers)
     d = {}
@@ -227,6 +266,7 @@ def csv_row_build(cat,prod):
     :param prod:  Object of type Product()
     :return: csv string for inserting in csv file
     :prod_id: id - uniq , autoincrement
+<<<<<<< HEAD
     prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift&&&0&&0&&&
     1. id - func() - set id + '&' +\
     2. active -1 
@@ -245,13 +285,35 @@ def csv_row_build(cat,prod):
     15. '1' + '&' +\
     16. string_characteristics() + '&' +\
     17. '&&&&&1&&&&' =
+=======
+    prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift.replace(' ','')&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&&&&&&&&
+>>>>>>> 68ed9295870720982ab8596d15796d93753b79de
     '''
+    img_string = ''
+    characteristic = ''
+    characteristics_string = ''
+    img_path = '/home/s/ss992mhb/back/public_html/import/'
+
+    result_string = ''
+
+    list_images = os.listdir(prod.relative_path)
+    print(list_images)
+    for img in list_images:
+        if os.path.isfile(img):
+            img_string = img_path + cat.translit_name + '/' + prod.translit_name + '/' + img + ';'
+            result_string += img_string
+    print(result_string)
+    for c in prod.characteristics:
+        characteristics_string += c[0] + ':' + c[1]
+    print(characteristics_string)
+
+
 
 if __name__ == '__main__':
     db = shelve.open('mydb', 'w')
     # db.clear()
     # db.
-    if not db.get('catsep') or not db.get('img_urls') or not db.get('imgs_path') or not db.get('prod_list'):
+    if not db.get('catsep') or not db.get('img_urls') or not db.get('imgs_path') or not db.get('prod_list') or not db.get('full_comments'):
         print(list(db.keys()))
         print(len(db.get('catsep')), len(db.get('img_urls')), len(db.get('imgs_path')), len(db.get('prod_list')))
         print('no data')
@@ -265,42 +327,61 @@ if __name__ == '__main__':
         img_urls = db['img_urls']
         imgs_path = db['imgs_path']
         prod_list = db['prod_list']
+        full_comments = db['full_comments']
         print(list(cat_dict.keys()))
         print('have data')
         print('End else section')
 
+<<<<<<< HEAD
     # update_db_cat() 
+=======
+
+
+
+    # update_db_cat()
+>>>>>>> 68ed9295870720982ab8596d15796d93753b79de
 
     # category_content_download()
 
     #
-    # for key in cat_dict.keys():
-    #     cat = cat_dict[key]
-    #     for content in cat_dict[key].content:
-    #         product_parse(content, cat_dict[key])
+    for key in cat_dict.keys():
+        cat = cat_dict[key]
+        for content in cat_dict[key].content:
+            product_parse(content, cat_dict[key])
 
+    set_id()
+
+    for key in prod_list.keys():
+        prod = prod_list[key]
+        csv_row_build(cat_dict[prod.category_translitname],prod)
     # print(prod_list,'\n', imgs_path,'\n', img_urls)
-    prod1 = ''
-    for k in prod_list.keys():
-        prod = prod_list[k]
-        prod1 = prod_list[k]
-        print(prod.name, prod.comment)
-        print(len(prod_list))
-        print('/'.join(imgs_path[prod.translit_name].split('/')[:-1]))
-        # open_file('/'.join(imgs_path[prod.translit_name].split('/')[:-1]))
-        # open_file(prod.relative_path)
-        print(prod.relative_path)
+    #---------------- FULL COMMENTS
+    # cnt = 0
+    # for k in prod_list.keys():
+    #     prod = prod_list[k]
+    #     print(prod.name, prod.comment)
+    #     print(len(prod_list))
+    #     print('/'.join(imgs_path[prod.translit_name].split('/')[:-1]))
+    #     # open_file('/'.join(imgs_path[prod.translit_name].split('/')[:-1]))
+    #     # open_file(prod.relative_path)
+    #     print(prod.relative_path, '-----begin comment')
+    #     print(cnt , '------------- product NUMBER')
+    #     cnt += 1
+    #     prod_comment(prod.url, prod.translit_name)
+        #--------------------------   FIREFOX START SEARCH GOOGLE IMAGE
         # ffp = FirefoxProfile('/home/aloha/.mozilla/firefox')
         # driver = webdriver.Firefox()
         # search = prod.name.replace(' ','+')
         # driver.get("https://www.google.com.sg/search?q=%s" % search + "&espv=2&biw=1920&bih=989&site=webhp&source=lnms&tbm=isch&sa=X&ei=ApZZVdrQJcqWuATcz4K4Cw&sqi=2&ved=0CAcQ_AUoAg")
-        break
+        # break
+    # ------------- CHECK FULL COMMENTS  ----------- ALL OK
+    # cnt = 0
+    # for k in full_comments.keys():
+    #     print(len(full_comments[k]), '--------', cnt)
+    #     cnt += 1
+    # -------------------------------------------
 
-
-    #
-    # for key in prod_list.keys():
-    #     print(key, prod_list[key].characteristics, prod_list[key].img_url)
-    # db.close()
+    db.close()
 
 # 1. открыть категорию -> сохранить в обьект категории контент в список , если несколько страниц
 # 2. Добавить в список visited + timestamp
