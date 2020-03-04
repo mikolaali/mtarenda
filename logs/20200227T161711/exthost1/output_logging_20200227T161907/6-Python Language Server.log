@@ -1,0 +1,15 @@
+Downloading https://pvsc.azureedge.net/python-language-server-stable/Python-Language-Server-linux-x64.0.5.30.nupkg...
+Language server download complete
+Unpacking archive... done
+[Info  - 16:19:22] Analysis cache path: /root/.cache/Microsoft/Python Language Server
+[Info  - 16:19:22] Microsoft Python Language Server version 0.5.30.0
+[Info  - 16:19:22] Workspace root: /home/aloha/mtarenda/venv
+[Info  - 16:19:23] GetCurrentSearchPaths /bin/python 
+[Info  - 16:19:23] Interpreter search paths:
+[Info  - 16:19:23]     /usr/lib/python3.7
+[Info  - 16:19:23]     /usr/lib/python3.7/lib-dynload
+[Info  - 16:19:23]     /usr/local/lib/python3.7/dist-packages
+[Info  - 16:19:23]     /usr/lib/python3/dist-packages
+[Info  - 16:19:23] User search paths:
+[Info  - 16:19:25] Initializing for /bin/python
+[Info  - 16:19:25] Analysis caching mode: None.
