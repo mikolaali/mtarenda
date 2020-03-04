@@ -1,4 +1,4 @@
-#!/root/PycharmProjects/mtarenda/venv/bin/python2.7
+#!/home/aloha/mtarenda/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
