@@ -285,7 +285,6 @@ def csv_row_build(cat,prod):
     15. '1' + '&' +\
     16. string_characteristics() + '&' +\
     17. '&&&&&1&&&&' =
-=======
     prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift.replace(' ','')&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&&&&&&&&
     '''
     img_string = ''
