@@ -31,6 +31,7 @@ base_url = 'https://mtarenda.ru/catalog/'
 root = 'https://mtarenda.ru'
 tractor_url = 'https://mtarenda.ru/catalog/arenda-traktora/'
 path_img = 'images'
+img_path = '/home/s/ss992mhb/back/public_html/import/'
 
 categories = [
     'Аренда трактора',
@@ -149,7 +150,7 @@ def product_parse(content, cat):
         prod.translit_name = translit_name
         # characteristics of product
         spans = div.find_all('span', class_='amount')
-        prod.comment = prod_comment(prod.url, prod.translit_name)
+        prod.comment = prod_comment(prod.url)
         prod.shift = spans[0].text
         prod.shipping = spans[1].text
         lis = div.find_all('li', class_='specifications-item')
@@ -177,7 +178,7 @@ def product_parse(content, cat):
         db['prod_list'] = prod_list
 
 # Описание к продукту, костыль , т.к. из начально парсил со страницы категории , а не со страницы
-def prod_comment(url, translit_name):
+def prod_comment(url):
     content = request_url(url, headers)
     if content.status_code == 200:
         soup = bs(content.content, 'lxml')
@@ -229,7 +230,7 @@ def save_img(url, cat, prod):
         print(path, 'not exists FUCK')
         os.makedirs(path, exist_ok=True)
 
-    if url not in img_urls:
+    if url not in img_urls or not os.listdir(prod.relative_path):
         r = requests.get(url)
     else:
         print('already downloaded')
@@ -250,6 +251,8 @@ def set_id():
         prod = prod_list[key]
         prod.id = cnt
         cnt += 1
+    db['prod_list'] = {}
+    db['prod_list'] = prod_list
 
 def update_db_cat():
     categories_parse(base_url, headers)
@@ -285,31 +288,38 @@ def csv_row_build(cat,prod):
     15. '1' + '&' +\
     16. string_characteristics() + '&' +\
     17. '&&&&&1&&&&' =
-    prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift.replace(' ','')&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&&&&&&&&
+    prod_id&1&prod.name&cat.name;Аренда спецтехники&prod.shift.replace(' ','')&&&0&&0&&&prod.shipping&&&&&&&&&&&100&&both&&&&&full_comments[prod.translit_name]&
+    cat.name&prod.name + ' в аренду по выгодной цене'&prod.name + ' аренда'&prod.name + ' в аренду по выгодной цене'&&&&&&&& + result_string + & 1 & characteristics +
+    &&&&&&1&&&&
     '''
     img_string = ''
     characteristic = ''
-    characteristics_string = ''
-    img_path = '/home/s/ss992mhb/back/public_html/import/'
-
+    characteristics_string = ''     # os.path.isfile(os.listdir(prod.relative_path)[0])
     result_string = ''
-    print(prod.relative_path)
+    # print(prod.relative_path)
     list_images = os.listdir(prod.relative_path)
-    print(list_images)
+    # print(list_images)
     for img in list_images:
         img_dir = prod.relative_path + '/' + img
         if os.path.isfile(img_dir):
             img_string = img_path + cat.translit_name + '/' + prod.translit_name + '/' + img + ';'
             result_string += img_string
+    # print('img_path: ', img_path)
     result_string = result_string[:-1]
     print(result_string)
     for key in prod.characteristics.keys():
         c = prod.characteristics[key]
-        print(c)
-        print(c[0], c[1])
+        # print(c)
+        # print(prod.name, 'characteristics: ', c[0], c[1])
         characteristics_string += c[0] + ':' + c[1] + ':' + str(key + 1) +';'
     characteristics_string = characteristics_string[:-1]
-    print(characteristics_string)
+    result_string = str(prod.id) + '&1&' + prod.name + '&' + cat.name + ';Аренда спецтехники&' + \
+                    prod.shift.replace(' ', '') + '&&&0&&0&&&' + prod.shipping + '&&&&&&&&&&&100&&both&&&&&' + \
+                    prod.comment + '&' + cat.name.lower() + '&' + prod.name + ' в аренду по выгодной цене - А Строй&' + prod.name + ' аренда&' + \
+                    prod.name + ' в аренду по выгодной цене&' + '&&&&&&&' + result_string + '&1&' + characteristics_string + '&&&&&&1&&&&\n'
+    print(prod.name, 'characteristics: ', characteristics_string)
+    print(result_string)
+    return result_string
 
 
 
@@ -346,14 +356,21 @@ if __name__ == '__main__':
     #
     # for key in cat_dict.keys():
     #     cat = cat_dict[key]
+    #     # if cat.translit_name == 'Ekskavatory-razrushiteli':
     #     for content in cat_dict[key].content:
     #         product_parse(content, cat_dict[key])
 
     set_id()
-
+    cnt = 0
     for key in prod_list.keys():
         prod = prod_list[key]
-        csv_row_build(cat_dict[prod.category_translitname],prod)
+        print(cnt, ': ')
+        cnt += 1
+        print(prod.id)
+        print(prod.comment)
+        row = csv_row_build(cat_dict[prod.category_translitname],prod)
+        with open('mtarenda.csv', 'a') as f:
+            f.write(row)
     # print(prod_list,'\n', imgs_path,'\n', img_urls)
     #---------------- FULL COMMENTS
     # cnt = 0
