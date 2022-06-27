@@ -94,7 +94,7 @@ pyudev==0.21.0
 PyYAML==5.1.2
 pyzmq==18.1.1
 qtconsole==4.6.0
-reportlab==3.5.13
+reportlab==3.5.55
 requests==2.21.0
 rope==0.14.0
 rpl==1.5.6
